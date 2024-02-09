@@ -1,22 +1,33 @@
 pipeline{
     agent any
+    environment{
+        BRANCH = 'Main'
+    }
+
     stages{
-    stage('step1'){
-        steps{
-        echo 'SCRIPT 1'
+        step("Step1"){
+            steps{
+                echo 'STEP 1'
+                sh 'printenv'
+            }
+        }
+
+        stage("Step2"){
+            when {
+                expression { BRANCH ==~ '/Main' }
+            }
+            steps{
+                echo 'STEP 2'
+            }
+        }
+
+         stage("Step3"){
+            when{
+                expression { BRANCH ==~ '/{Release}/'}
+            }
+            steps{
+                echo 'STEP 3'
+            }
         }
     }
-
-    stage('step2'){
-       steps{
-         echo 'SCRIPT 2'
-       }
-    }
-
-    stage('step3'){
-       steps{
-         echo 'SCRIPT 3'
-       }
-    }
-}
 }
