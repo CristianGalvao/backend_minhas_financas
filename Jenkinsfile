@@ -5,7 +5,7 @@ pipeline{
     }
 
     stages{
-        step("Step1"){
+        stage("Step1"){
             steps{
                 echo 'STEP 1'
                 sh 'printenv'
